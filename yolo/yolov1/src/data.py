@@ -80,7 +80,7 @@ class YoloDataset(Dataset):
             one_hot = torch.zeros(c)
             one_hot[classes[i]] = 1.0
 
-            ground_truth[row, col, b*5:] = one_hot
+            ground_truth[row, col, b * 5:] = one_hot
             
             if col >= 0 and col <= s and row >= 0 and row <= s:
                 # 计算相对于网格左上角的偏移量
