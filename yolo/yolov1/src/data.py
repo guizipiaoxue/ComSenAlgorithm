@@ -33,7 +33,8 @@ class YoloDataset(Dataset):
         label_path = os.path.join(self.label_dir, self.label_filenames[idx])
         label = self.load_label(label_path, img.size)
 
-        return image, label, img
+        # 为了让 DataLoader 的 collate_fn 能正常工作，返回可被拼接的 numpy 数组而不是 PIL.Image
+        return image, label, np.array(img)
     
     def load_image(self, path):
         # 使用PIL加载图像，并转换为张量
@@ -114,10 +115,13 @@ if __name__ == "__main__":
     print("Image tensor shape:", image.shape)
     print("Label tensor shape:", label.shape)
     print(label)
-    print("Image size:", img.size)
+    # img 现在是 numpy 数组（H, W, C）
+    if hasattr(img, 'size'):
+        print("Image size:", img.size)
+    else:
+        print("Image shape:", img.shape)
 
-    # 显示图片
-    # 这里也可以用PILLOW显示，然后tensor得先转换成numpy才能丢入cv2
-    cv2.imshow('Image', cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR))
+    # 显示图片（img 已经是 numpy）
+    cv2.imshow('Image', cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
     cv2.waitKey(0)
     cv2.destroyAllWindows()

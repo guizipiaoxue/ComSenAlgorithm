@@ -12,10 +12,11 @@ class YoloLoss(nn.Module):
     YOLOv1 损失函数
     """
     def __init__(self):
+        super().__init__()
         self.l_coord = 5.0  # 坐标损失权重
         self.l_noobj = 0.5  # 无目标损失权重
 
-    def forword(self, p, a):
+    def forward(self, p, a):
         # 计算预测边框与真实的边框的IOU
         # p: 预测张量，形状为 (batch, S, S, B*5 + C)
         # a: 真实张量，形状为 (batch, S, S, B*5 + C)
