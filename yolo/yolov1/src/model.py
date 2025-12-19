@@ -115,3 +115,6 @@ if __name__ == "__main__":
     print(f"Output min: {output.min().item():.4f}")
     print(f"Output max: {output.max().item():.4f}")
     print(f"Output mean: {output.mean().item():.4f}")
+    # 打印参数总量
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"Total model parameters: {total_params}")

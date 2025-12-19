@@ -104,3 +104,5 @@ coverage.xml
 .pytest_cache/
 
 yolo-v1/
+
+run/

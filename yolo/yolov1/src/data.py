@@ -42,7 +42,7 @@ class YoloDataset(Dataset):
         image = Image.open(path).convert('RGB')
         transform = transforms.Compose([
             transforms.Resize((448, 448)),
-            transforms.ToTensor(),
+            transforms.ToTensor(), # 注意这里将图片进行了一个从255到0-1的转换
         ])
 
         return transform(image), image
@@ -116,6 +116,7 @@ if __name__ == "__main__":
     print("Label tensor shape:", label.shape)
     print(label)
     # img 现在是 numpy 数组（H, W, C）
+    print("Image numpy shape:", img.shape)
     if hasattr(img, 'size'):
         print("Image size:", img.size)
     else:
